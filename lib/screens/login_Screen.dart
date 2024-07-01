@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Center(
               child: Column(
@@ -49,16 +49,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 14,
                     ),
                   ),
-                  SizedBox(height: 10),
-                  OptionsSignup(),
-                  TextFieldSignup(),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 10),
+                  const OptionsSignup(),
+                  const TextFieldSignup(),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home');
                     },
                     style: ElevatedButton.styleFrom(
-                      padding:  EdgeInsets.fromLTRB(40, 15, 40, 15),
+                      padding:  const EdgeInsets.fromLTRB(40, 15, 40, 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShowCardScreen extends StatefulWidget {
@@ -40,11 +39,11 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               InkWell(
                 onTap: flipCard,
                 child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 600),
+                  duration: const Duration(milliseconds: 600),
                   transitionBuilder:
                       (Widget child, Animation<double> animation) {
                     final rotate =
@@ -161,7 +160,7 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
 
   Widget buildFront() {
     return Container(
-      key: ValueKey(true),
+      key: const ValueKey(true),
       height: 200,
       width: 300,
       decoration: BoxDecoration(
@@ -312,7 +311,7 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
 
   Widget buildRear() {
     return Container(
-      key: ValueKey(false),
+      key: const ValueKey(false),
       height: 200,
       width: 300,
       decoration: BoxDecoration(

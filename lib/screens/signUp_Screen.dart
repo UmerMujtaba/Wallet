@@ -49,8 +49,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                OptionsSignup(),
-                TextFieldSignup(),
+                const OptionsSignup(),
+                const TextFieldSignup(),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 15, 30, 5),
                   child: TextField(

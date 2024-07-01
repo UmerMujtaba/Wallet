@@ -28,29 +28,29 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           items: [
             /// Home
             SalomonBottomBarItem(
-              icon: Icon(Icons.wallet_outlined), // Outlined icon for unselected state
-              title: Text(""),
+              icon: const Icon(Icons.wallet_outlined), // Outlined icon for unselected state
+              title: const Text(""),
               selectedColor: Colors.blueAccent, // Color for selected item
             ),
 
             /// Likes
             SalomonBottomBarItem(
-              icon: Icon(Icons.bar_chart_outlined), // Outlined icon for unselected state
-              title: Text(""),
+              icon: const Icon(Icons.bar_chart_outlined), // Outlined icon for unselected state
+              title: const Text(""),
               selectedColor: Colors.blueAccent, // Color for selected item
             ),
 
             /// Search
             SalomonBottomBarItem(
-              icon: Icon(Icons.notifications_outlined), // Outlined icon for unselected state
-              title: Text(""),
+              icon: const Icon(Icons.notifications_outlined), // Outlined icon for unselected state
+              title: const Text(""),
               selectedColor: Colors.blueAccent, // Color for selected item
             ),
 
             /// Profile
             SalomonBottomBarItem(
-              icon: Icon(Icons.settings_outlined), // Outlined icon for unselected state
-              title: Text(""),
+              icon: const Icon(Icons.settings_outlined), // Outlined icon for unselected state
+              title: const Text(""),
               selectedColor: Colors.blueAccent, // Color for selected item
             ),
           ],
