@@ -82,6 +82,7 @@ class _BarScreenState extends State<BarScreen> {
                               borderRadius:
                                   BorderRadius.circular(20.0), // Circular border
                             ),
+                            hintText: ''
                           ),
                           items: <String>[
                             'Jan - June',

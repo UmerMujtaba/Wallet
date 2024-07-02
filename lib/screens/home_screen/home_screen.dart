@@ -20,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     const HomeScreenContent(), // Define the content of your home screen
     BarScreen(), // Define the content of your likes screen
+     NotificationScreen(), // Define the content of your profile screen
     const SetttingsScreen(), // Define the content of your search screen
-    const NotificationScreen(), // Define the content of your profile screen
   ];
 
   @override
