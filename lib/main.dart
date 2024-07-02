@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       '/transaction': (context) => const TransactionsScreen(),
       '/add-card': (context) => const AddCardScreen(),
       '/add-card2': (context) => const AddCardScreen2(),
-      '/show-card': (context) => const ShowCardScreen(),
+
 
     });
   }
