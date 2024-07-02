@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:wallet/components/options_SignUp.dart';
 import 'package:wallet/components/text_Field_SignUp.dart';
+import 'package:wallet/screens/login_Screen.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+  final String email;
+
+  const SignupScreen({
+    super.key,
+    required this.email,
+  });
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -49,8 +55,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const OptionsSignup(),
-                const TextFieldSignup(),
+                OptionsSignup(
+                  onEmailRetrieved: (email) {
+                    setState(() {
+                      // Handle the retrieved email here if needed
+                    });
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 15, 30, 5),
                   child: TextField(
@@ -97,7 +108,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/login');
@@ -117,7 +127,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/login');
+                    print(widget.email);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen(email: widget.email)),
+                    );
                   },
                   child: RichText(
                     text: const TextSpan(
