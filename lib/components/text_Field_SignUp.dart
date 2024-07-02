@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextFieldSignup extends StatefulWidget {
-  const TextFieldSignup({Key? key}) : super(key: key);
+  const TextFieldSignup({super.key});
 
   @override
   State<TextFieldSignup> createState() => _TextFieldSignupState();
@@ -59,7 +59,7 @@ class _TextFieldSignupState extends State<TextFieldSignup> {
         Padding(
           padding: const EdgeInsets.fromLTRB(30, 15, 30, 5),
           child: TextField(
-            controller: nameController,
+            controller: emailController,
             obscureText: false,
             decoration: InputDecoration(
               filled: true,

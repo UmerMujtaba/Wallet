@@ -1,6 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:wallet/components/bottom_Bar.dart';
 import 'package:wallet/screens/bar_Screen.dart';
 import 'package:wallet/screens/home_screen/stack_Home_Screen.dart';
@@ -21,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const HomeScreenContent(), // Define the content of your home screen
-    const BarScreen(), // Define the content of your likes screen
+    BarScreen(), // Define the content of your likes screen
     const SetttingsScreen(), // Define the content of your search screen
     const NotificationScreen(), // Define the content of your profile screen
   ];
