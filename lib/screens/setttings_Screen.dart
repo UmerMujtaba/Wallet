@@ -1,8 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SetttingsScreen extends StatelessWidget {
+class SetttingsScreen extends StatefulWidget {
   const SetttingsScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SetttingsScreen> createState() => _SetttingsScreenState();
+}
+
+class _SetttingsScreenState extends State<SetttingsScreen> {
+
+  Future<void> signOutAndDeleteUser() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
+      }
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print('Error signing out or deleting user: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,9 +133,15 @@ class SetttingsScreen extends StatelessWidget {
               size: 30,
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Log Out',
-              style: TextStyle(color: Colors.indigo, fontSize: 22),
+            GestureDetector(
+              onTap: () async {
+                await signOutAndDeleteUser();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text(
+                'Log Out',
+                style: TextStyle(color: Colors.indigo, fontSize: 22),
+              ),
             )
           ],
         ),

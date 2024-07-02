@@ -18,7 +18,7 @@ class OptionsHomeScreen extends StatelessWidget {
         return Column(
           children: <Widget>[
             Card(
-              elevation: 10,
+              elevation: 3,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

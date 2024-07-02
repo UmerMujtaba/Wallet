@@ -13,7 +13,7 @@ class StackHomeScreen extends StatelessWidget {
         height: 150,
         decoration: BoxDecoration(
           color: Colors.indigo[800],
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Stack(
           children: [

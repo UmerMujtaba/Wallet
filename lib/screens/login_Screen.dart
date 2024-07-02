@@ -4,16 +4,21 @@ import 'package:wallet/components/options_SignUp.dart';
 import '../components/text_Field_SignUp.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final String email;
+  const LoginScreen({
+    Key? key, required this.email,
+  }) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    print(widget.email);
+    return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Padding(
@@ -50,15 +55,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const OptionsSignup(),
-                  const TextFieldSignup(),
+                  OptionsSignup(
+                    onEmailRetrieved: (email) {
+                      setState(() {
+                        // Handle the retrieved email here if needed
+                      });
+                    },
+                  ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home');
                     },
                     style: ElevatedButton.styleFrom(
-                      padding:  const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                      padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -71,23 +81,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 10),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pushNamed(context, '/signup');
                     },
                     child: RichText(
                       text: const TextSpan(
                         text: 'Dont\'t have an account? ',
-                        style: TextStyle(
-                            color: Colors.black, fontSize: 12
-                        ),
+                        style: TextStyle(color: Colors.black, fontSize: 12),
                         children: <TextSpan>[
-                          TextSpan(text: 'Register', style: TextStyle(color: Colors.blue,fontSize: 12)),
+                          TextSpan(
+                              text: 'Register',
+                              style:
+                                  TextStyle(color: Colors.blue, fontSize: 12)),
                         ],
                       ),
                     ),
                   ),
                 ],
-
               ),
             ),
           ),
