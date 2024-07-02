@@ -39,6 +39,7 @@ dependencies:
   flutter_floating_bottom_bar: ^1.2.0
   salomon_bottom_bar: ^3.3.2
   awesome_card: ^1.1.7
+  fl_chart: ^0.68.0
 
 
 dev_dependencies:

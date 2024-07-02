@@ -65,7 +65,7 @@ class StackHomeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '\$ 1.234',
+                        '\$ 13.248',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

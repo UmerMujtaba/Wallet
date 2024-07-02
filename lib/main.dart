@@ -3,7 +3,6 @@ import 'package:wallet/screens/add_card/add_Card_Screen.dart';
 import 'package:wallet/screens/add_card/add_Card_Screen2.dart';
 import 'package:wallet/screens/home_screen/home_screen.dart';
 import 'package:wallet/screens/login_Screen.dart';
-import 'package:wallet/screens/show_Card.dart';
 import 'package:wallet/screens/signUp_Screen.dart';
 import 'package:wallet/screens/transactions_Screen.dart';
 

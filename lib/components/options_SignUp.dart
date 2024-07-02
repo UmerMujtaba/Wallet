@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class OptionsSignup extends StatefulWidget {
-  const OptionsSignup({Key? key}) : super(key: key);
+  const OptionsSignup({super.key});
 
   @override
   State<OptionsSignup> createState() => _OptionsSignupState();
