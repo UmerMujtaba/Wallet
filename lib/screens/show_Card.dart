@@ -1,9 +1,29 @@
+import 'dart:core';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 
 class ShowCardScreen extends StatefulWidget {
-  const ShowCardScreen({Key? key}) : super(key: key);
+  final String name;
+  final String bank;
+  final String account;
+  final String status;
+  final String card;
+  final String cvc;
+  final String startDate;
+  final String endDate;
+
+  const ShowCardScreen(
+      {Key? key,
+      required this.name,
+      required this.bank,
+      required this.account,
+      required this.status,
+      required this.card,
+      required this.cvc,
+      required this.startDate,
+      required this.endDate})
+      : super(key: key);
 
   @override
   State<ShowCardScreen> createState() => _ShowCardScreenState();
@@ -18,6 +38,39 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
     });
   }
 
+  String formatAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) {
+      return accountNumber;
+    }
+
+    // Insert spaces after every 4 characters
+    String maskedCharacters = '*' * (accountNumber.length - 4);
+    String lastFourDigits = accountNumber.substring(accountNumber.length - 4);
+
+    // Combine masked characters and last four digits with spaces after every 4 characters
+    String formattedAccountNumber = '';
+    for (int i = 0; i < maskedCharacters.length; i += 4) {
+      formattedAccountNumber += '${maskedCharacters.substring(i, i + 4)} ';
+    }
+    formattedAccountNumber += lastFourDigits;
+
+    return formattedAccountNumber.trim(); // Trim to remove any trailing space
+  }
+
+
+  String formatCardNumber(String cardNumber) {
+    // Remove any non-digit characters from the card number
+    String cleanedCardNumber = cardNumber.replaceAll(RegExp(r'\D+'), '');
+
+    // Insert spaces after every 4 digits
+    List<String> parts = [];
+    for (int i = 0; i < cleanedCardNumber.length; i += 4) {
+      parts.add(cleanedCardNumber.substring(i, i + 4));
+    }
+
+    // Join parts with spaces
+    return parts.join(' ');
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,14 +124,14 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                 ),
               ),
               const SizedBox(height: 50),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                 child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             'Name',
@@ -86,16 +139,16 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('Jaka Mambang'),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(widget.name),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             'Bank',
@@ -103,16 +156,16 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('Mabank'),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(widget.bank),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             'Account',
@@ -120,16 +173,16 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('**** **** **** 2581'),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(formatAccountNumber(widget.account)),
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             'Status',
@@ -137,8 +190,8 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text('Active'),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(widget.status),
                         ),
                       ],
                     ),
@@ -224,12 +277,12 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
               ),
             ),
           ),
-          const Positioned(
+           Positioned(
             left: 25,
             bottom: 90,
             child: Text(
-              '1234 5678 9581 2546',
-              style: TextStyle(
+              formatCardNumber(widget.card),
+              style: const TextStyle(
                 color: Colors.white,
                 //fontWeight: FontWeight.bold,
                 fontSize: 22,
@@ -237,12 +290,12 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             left: 25,
             bottom: 15,
             child: Text(
-              'AHMAD ALI',
-              style: TextStyle(
+              widget.name,
+              style: const TextStyle(
                 color: Colors.white,
                 //fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -250,14 +303,14 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             left: 25,
             bottom: 50,
             child: Row(
               children: <Widget>[
                 Row(
                   children: [
-                    Column(
+                    const Column(
                       children: [
                         Text(
                           'Valid',
@@ -272,17 +325,17 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                         )
                       ],
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
-                      '07/19',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      widget.startDate,
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
                     )
                   ],
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Row(
                   children: [
-                    Column(
+                    const Column(
                       children: [
                         Text(
                           'Valid',
@@ -294,10 +347,10 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                         )
                       ],
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
-                      '07/19',
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      widget.endDate,
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
                     )
                   ],
                 )
@@ -351,13 +404,13 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
                 height: 30,
                 //width: 280,
                 color: Colors.white,
-                child: const Align(
+                child:Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: EdgeInsets.only(right: 10.0),
+                    padding: const EdgeInsets.only(right: 10.0),
                     child: Text(
-                      '258',
-                      style: TextStyle(color: Colors.black),
+                      widget.cvc,
+                      style: const TextStyle(color: Colors.black),
                       textAlign: TextAlign.end,
                     ),
                   ),
@@ -386,14 +439,18 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
           const Positioned(
             left: 25,
             bottom: 30,
-            child: Text(
-              'Visa',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                fontStyle: FontStyle.italic,
-              ),
+            child: Column(
+              children: [
+                Text(
+                  'Visa',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
