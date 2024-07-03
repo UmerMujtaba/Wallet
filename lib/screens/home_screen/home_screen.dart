@@ -8,7 +8,9 @@ import 'package:wallet/screens/setttings_Screen.dart';
 import 'options_Home_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+ final String username;
+
+  const HomeScreen({super.key, required this.username, });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,19 +18,24 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  late List<Widget> _screens; // Declare _screens as a late variable
 
-  final List<Widget> _screens = [
-    const HomeScreenContent(), // Define the content of your home screen
-    BarScreen(), // Define the content of your likes screen
-     NotificationScreen(), // Define the content of your profile screen
-    const SetttingsScreen(), // Define the content of your search screen
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      HomeScreenContent(username: widget.username),
+      // Pass userModel to HomeScreenContent
+      BarScreen(),
+      NotificationScreen(),
+      const SetttingsScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: _screens[_currentIndex],
@@ -45,8 +52,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeScreenContent extends StatelessWidget {
-  const HomeScreenContent({Key? key}) : super(key: key);
+class HomeScreenContent extends StatefulWidget {
+ final String username;
+  const HomeScreenContent({super.key, required this.username,});
+
+  @override
+  State<HomeScreenContent> createState() => _HomeScreenContentState();
+}
+
+class _HomeScreenContentState extends State<HomeScreenContent> {
+  @override
+  void initState() {
+    super.initState();
+    // print('User Name: ${widget.username}');
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +82,10 @@ class HomeScreenContent extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'Wallet',
                           style: TextStyle(
                             color: Colors.black,
@@ -74,10 +94,10 @@ class HomeScreenContent extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Active',
-                          style: TextStyle(
+                          'Hello! ${widget.username}',
+                          style: const TextStyle(
                             color: Colors.grey,
-                            fontSize: 14,
+                            fontSize: 16,
                           ),
                         ),
                       ],

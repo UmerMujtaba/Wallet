@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:wallet/components/options_SignUp.dart';
-import 'package:wallet/components/text_Field_SignUp.dart';
+import 'package:wallet/screens/home_screen/home_screen.dart';
 import 'package:wallet/screens/login_Screen.dart';
 
+import '../services/auth_Services.dart';
+
 class SignupScreen extends StatefulWidget {
-  final String email;
+  final UserModel userModel;
 
   const SignupScreen({
-    super.key,
-    required this.email,
-  });
+    Key? key,
+    required this.userModel,
+  }) : super(key: key);
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    String name;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -55,13 +58,30 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                OptionsSignup(
-                  onEmailRetrieved: (email) {
-                    setState(() {
-                      // Handle the retrieved email here if needed
-                    });
-                  },
-                ),
+                OptionsSignup(onUserRetrieved: (user) {
+                  Future.delayed(
+                    const Duration(milliseconds: 500),
+                    () {
+                      setState(() {
+                        emailController.text = user.email;
+                        name=user.name;
+                        // passwordController.text = user.name;
+                        // print(passwordController.text);
+                        // print(user.email);
+
+                        if (user.email.isNotEmpty) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  HomeScreen(username: name),
+                            ),
+                          );
+                        }
+                      });
+                    },
+                  );
+                }),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 15, 30, 5),
                   child: TextField(
@@ -80,26 +100,20 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
-                        // Slightly curved corners
                         borderSide: const BorderSide(
-                          color: Colors
-                              .transparent, // Makes the border transparent
+                          color: Colors.transparent,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
-                        // Slightly curved corners
                         borderSide: const BorderSide(
-                          color: Colors
-                              .transparent, // Makes the border transparent
+                          color: Colors.transparent,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
-                        // Slightly curved corners
                         borderSide: const BorderSide(
-                          color: Colors
-                              .transparent, // Makes the border transparent
+                          color: Colors.transparent,
                         ),
                       ),
                       labelText: 'Password',
@@ -127,20 +141,23 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    print(widget.email);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen(email: widget.email)),
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            LoginScreen(userModel: widget.userModel),
+                      ),
                     );
                   },
                   child: RichText(
                     text: const TextSpan(
-                      text: 'You have account? ',
+                      text: 'You have an account? ',
                       style: TextStyle(color: Colors.black, fontSize: 12),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'Login',
-                            style: TextStyle(color: Colors.blue, fontSize: 12)),
+                          text: 'Login',
+                          style: TextStyle(color: Colors.blue, fontSize: 12),
+                        ),
                       ],
                     ),
                   ),
