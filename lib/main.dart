@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(initialRoute: '/signup', routes: {
-      '/signup': (context) => SignupScreen(userModel: UserModel( email: '', name: '')), // Pass a valid UserModel instance here
-      '/login': (context) => LoginScreen(userModel: UserModel(email: '', name: '')), // Pass a valid UserModel instance here
+      '/signup': (context) => SignupScreen(userModel: UserModel( email: '', name: '', profilePictureUrl: '')), // Pass a valid UserModel instance here
+      '/login': (context) => LoginScreen(userModel: UserModel(email: '', name: '', profilePictureUrl: '')), // Pass a valid UserModel instance here
 
       '/transaction': (context) => const TransactionsScreen(),
       '/add-card': (context) => const AddCardScreen(),

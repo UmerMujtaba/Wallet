@@ -5,7 +5,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   static Future<UserModel?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut(); // Ensure the user is signed out from previous session
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
         // The user canceled the sign-in
@@ -25,6 +28,7 @@ class AuthService {
         return UserModel(
           email: userCredential.user!.email ?? '',
           name: userCredential.user!.displayName ?? '',
+          profilePictureUrl: userCredential.user!.photoURL ?? '',
         );
       } else {
         return null;
@@ -37,12 +41,15 @@ class AuthService {
   }
 }
 
+
 class UserModel {
   final String email;
   final String name;
+  final String profilePictureUrl;
 
   UserModel({
     required this.email,
     required this.name,
+    required this.profilePictureUrl,
   });
 }

@@ -23,6 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
     TextEditingController passwordController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     String name;
+    String userpic;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -60,11 +61,12 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 10),
                 OptionsSignup(onUserRetrieved: (user) {
                   Future.delayed(
-                    const Duration(milliseconds: 500),
+                    const Duration(milliseconds: 1000),
                     () {
                       setState(() {
                         emailController.text = user.email;
                         name=user.name;
+                        userpic=user.profilePictureUrl;
                         // passwordController.text = user.name;
                         // print(passwordController.text);
                         // print(user.email);
@@ -74,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  HomeScreen(username: name),
+                                  HomeScreen(username: name, userprofile: userpic,),
                             ),
                           );
                         }

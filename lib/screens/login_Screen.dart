@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     String name;
+    String userpic;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -66,10 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(
                             () {
                               name=user.name;
+                              userpic=user.profilePictureUrl;
                               if (user.email.isNotEmpty) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) =>  HomeScreen(username: name,)),
+                                  MaterialPageRoute(builder: (context) =>  HomeScreen(username: name, userprofile: userpic)),
                                 );
                               }
                             },

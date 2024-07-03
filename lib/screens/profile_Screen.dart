@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 class ProfileScreen extends StatefulWidget {
   final String username;
-
+final String userprofilepicture;
   const ProfileScreen({
     super.key,
-    required this.username,
+    required this.username, required this.userprofilepicture,
   });
 
   @override
@@ -22,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         await user.delete();
       }
       await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().signOut(); // Sign out from Google
     } catch (e) {
       print('Error signing out or deleting user: $e');
     }
@@ -52,13 +54,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 20),
               CircleAvatar(
                 radius: 30,
-                backgroundImage: const AssetImage('assets/user1.jpg'),
+
                 child: ClipOval(
                   child: SizedBox(
                     width: 100,
                     height: 100,
-                    child: Image.asset(
-                      'assets/user1.jpg',
+                    child: Image.network(
+                      widget.userprofilepicture,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -156,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               IconButton(
-                onPressed: () async{
+                onPressed: () async {
                   await deleteUser();
                   Navigator.pushReplacementNamed(context, '/signup');
                 },
@@ -177,6 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyle(color: Colors.indigo, fontSize: 22),
                 ),
               )
+
             ],
           ),
         ),

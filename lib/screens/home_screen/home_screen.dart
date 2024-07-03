@@ -9,9 +9,14 @@ import '../settings_Screen.dart';
 import 'options_Home_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
- final String username;
+  final String username;
+  final String userprofile;
 
-  const HomeScreen({super.key, required this.username, });
+  const HomeScreen({
+    super.key,
+    required this.username,
+    required this.userprofile,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,11 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _screens = [
-      HomeScreenContent(username: widget.username),
+      HomeScreenContent(
+          username: widget.username, userprofile: widget.userprofile),
       // Pass userModel to HomeScreenContent
       BarScreen(),
       NotificationScreen(),
-      SettingScreen(username: widget.username),
+      SettingScreen(username: widget.username, userpic: widget.userprofile,),
     ];
   }
 
@@ -54,8 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomeScreenContent extends StatefulWidget {
- final String username;
-  const HomeScreenContent({super.key, required this.username,});
+  final String username;
+  final String userprofile;
+
+  const HomeScreenContent({
+    super.key,
+    required this.username,
+    required this.userprofile,
+  });
 
   @override
   State<HomeScreenContent> createState() => _HomeScreenContentState();
@@ -66,7 +78,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
   void initState() {
     super.initState();
     // print('User Name: ${widget.username}');
-
   }
 
   @override
@@ -105,18 +116,19 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                     ),
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: const AssetImage('assets/user1.jpg'),
+                      //backgroundImage:  AssetImage('assets/user1.jpg'),
+
                       child: ClipOval(
                         child: SizedBox(
                           width: 100,
                           height: 100,
-                          child: Image.asset(
-                            'assets/user1.jpg',
+                          child: Image.network(
+                            widget.userprofile,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),

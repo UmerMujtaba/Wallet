@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wallet/screens/profile_Screen.dart';
 
 class SettingScreen  extends StatefulWidget {
   final String username;
-  const SettingScreen ({super.key, required this.username, });
+  final String userpic;
+  const SettingScreen ({super.key, required this.username, required this.userpic, });
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
@@ -15,9 +17,11 @@ class _SettingScreenState extends State<SettingScreen> {
   Future<void> signOut() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
+      final GoogleSignIn googleSignIn = GoogleSignIn();
       if (user != null) {
 
       }
+      await googleSignIn.signOut();
       await FirebaseAuth.instance.signOut();
     } catch (e) {
       print('Error signing out or deleting user: $e');
@@ -73,7 +77,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 onTap: (){
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) =>  ProfileScreen(username: widget.username,)),
+                                    MaterialPageRoute(builder: (context) =>  ProfileScreen(username: widget.username, userprofilepicture: widget.userpic,)),
                                   );
                                 },
                               ),
