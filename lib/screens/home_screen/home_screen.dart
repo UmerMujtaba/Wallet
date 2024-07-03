@@ -3,7 +3,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wallet/components/bottom_Bar.dart';
 import 'package:wallet/model/my_card.dart';
 import 'package:wallet/screens/bar_Screen.dart';
-import 'package:wallet/screens/home_screen/stack_Home_Screen.dart';
 import 'package:wallet/screens/home_screen/transaction_Home_Screen.dart';
 import 'package:wallet/screens/notification_Screen.dart';
 
