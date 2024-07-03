@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatelessWidget {
-   NotificationScreen({Key? key}) : super(key: key);
+   NotificationScreen({super.key});
 
   final List<Map<String, dynamic>> notificationsNew =  [
     {

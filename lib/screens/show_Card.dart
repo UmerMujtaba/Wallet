@@ -14,7 +14,7 @@ class ShowCardScreen extends StatefulWidget {
   final String endDate;
 
   const ShowCardScreen(
-      {Key? key,
+      {super.key,
       required this.name,
       required this.bank,
       required this.account,
@@ -22,8 +22,7 @@ class ShowCardScreen extends StatefulWidget {
       required this.card,
       required this.cvc,
       required this.startDate,
-      required this.endDate})
-      : super(key: key);
+      required this.endDate});
 
   @override
   State<ShowCardScreen> createState() => _ShowCardScreenState();
@@ -240,7 +239,7 @@ class _ShowCardScreenState extends State<ShowCardScreen> {
             child: Transform.rotate(
               angle: 90 * pi / 180,
               child: const Image(
-                image: AssetImage('assets/imagesr.png'),
+                image: AssetImage('assets/image.png'),
                 height: 50,
                 width: 60,
               ),
