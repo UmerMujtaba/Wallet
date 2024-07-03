@@ -8,6 +8,7 @@ import 'package:wallet/screens/home_screen/home_screen.dart';
 import 'package:wallet/screens/login_Screen.dart';
 import 'package:wallet/screens/signUp_Screen.dart';
 import 'package:wallet/screens/transactions_Screen.dart';
+import 'package:wallet/services/auth_Services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +30,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(initialRoute: '/signup', routes: {
-      '/signup': (context) => const SignupScreen( email: ''),
-      '/login': (context) => const LoginScreen(email: '',),
-      '/home': (context) => const HomeScreen(),
+      '/signup': (context) => SignupScreen(userModel: UserModel( email: '', name: '')), // Pass a valid UserModel instance here
+      '/login': (context) => LoginScreen(userModel: UserModel(email: '', name: '')), // Pass a valid UserModel instance here
+      '/home': (context) =>  HomeScreen(username: ''),
       '/transaction': (context) => const TransactionsScreen(),
       '/add-card': (context) => const AddCardScreen(),
       '/add-card2': (context) => const AddCardScreen2(),

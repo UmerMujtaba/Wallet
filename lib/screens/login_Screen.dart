@@ -1,12 +1,17 @@
+// login_screen.dart
 import 'package:flutter/material.dart';
-import 'package:wallet/components/options_SignUp.dart';
+import 'package:wallet/components/options_SignUp.dart' as options;
+import 'package:wallet/screens/home_screen/home_screen.dart';
+import 'package:wallet/screens/signUp_Screen.dart';
 
-import '../components/text_Field_SignUp.dart';
+import '../services/auth_Services.dart';
 
 class LoginScreen extends StatefulWidget {
-  final String email;
+  final UserModel userModel;
+
   const LoginScreen({
-    Key? key, required this.email,
+    Key? key,
+    required this.userModel,
   }) : super(key: key);
 
   @override
@@ -17,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.email);
+    String name;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -35,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 30),
-                      //textAlign: TextAlign.center,
                     ),
                   ),
                   const Text(
@@ -44,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 30),
-                    //textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 50),
                   const Text(
@@ -55,17 +58,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  OptionsSignup(
-                    onEmailRetrieved: (email) {
-                      setState(() {
-                        // Handle the retrieved email here if needed
-                      });
+                  options.OptionsSignup(
+                    onUserRetrieved: (user) {
+                      Future.delayed(
+                        const Duration(milliseconds: 500),
+                        () {
+                          setState(
+                            () {
+                              name=user.name;
+                              if (user.email.isNotEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  HomeScreen(username: name,)),
+                                );
+                              }
+                            },
+                          );
+                        },
+                      );
                     },
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                          builder: (context) =>
+                          LoginScreen(userModel: widget.userModel),
+                      ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
@@ -82,7 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/signup');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SignupScreen(userModel: widget.userModel),
+                        ),
+                      );
                     },
                     child: RichText(
                       text: const TextSpan(

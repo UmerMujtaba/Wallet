@@ -1,10 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// options_SignUp.dart
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../services/auth_Services.dart';
 
 class OptionsSignup extends StatefulWidget {
-  final Function(String) onEmailRetrieved;
-  OptionsSignup({super.key, required this.onEmailRetrieved});
+  final Function(UserModel) onUserRetrieved;
+
+  OptionsSignup({
+    super.key, required this.onUserRetrieved,
+
+  });
 
   @override
   State<OptionsSignup> createState() => _OptionsSignupState();
@@ -16,54 +21,29 @@ class _OptionsSignupState extends State<OptionsSignup> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  ValueNotifier<UserCredential?> userCredential = ValueNotifier(null);
-
   Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      userCredential.value = await FirebaseAuth.instance.signInWithCredential(credential);
-      if (userCredential.value != null) {
-        widget.onEmailRetrieved(userCredential.value!.user!.email ?? '');
-      }
-    } on Exception catch (e) {
-      print('exception->$e');
+    UserModel? user = await AuthService.signInWithGoogle();
+    if (user != null) {
+      setState(() {
+        nameController.text = user.name;
+        emailController.text = user.email;
+      });
+      widget.onUserRetrieved(user);
     }
   }
 
   void _onGoogleButtonPressed() {
     setState(() {
-      _googleButtonColor =
-      _googleButtonColor == Colors.white ? Colors.blue : Colors.white;
+      _googleButtonColor = _googleButtonColor == Colors.white ? Colors.blue : Colors.white;
       _facebookButtonColor = Colors.white; // Reset other button color
     });
+    signInWithGoogle();
   }
 
   void _onFacebookButtonPressed() {
     setState(() {
-      _facebookButtonColor =
-      _facebookButtonColor == Colors.white ? Colors.blue : Colors.white;
+      _facebookButtonColor = _facebookButtonColor == Colors.white ? Colors.blue : Colors.white;
       _googleButtonColor = Colors.white; // Reset other button color
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Listen to changes in userCredential and update the emailController
-    userCredential.addListener(() {
-      if (userCredential.value != null) {
-        emailController.text = userCredential.value!.user!.email ?? '';
-      }
     });
   }
 
@@ -85,10 +65,7 @@ class _OptionsSignupState extends State<OptionsSignup> {
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                 ),
-                onPressed: () async {
-                  _onGoogleButtonPressed();
-                  await signInWithGoogle();
-                },
+                onPressed: _onGoogleButtonPressed,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -129,87 +106,75 @@ class _OptionsSignupState extends State<OptionsSignup> {
             )
           ],
         ),
-        ValueListenableBuilder<UserCredential?>(
-          valueListenable: userCredential,
-          builder: (context, user, child) {
-            if (user != null) {
-              emailController.text = user.user!.email ?? '';
-            }
-            return Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 5),
-                  child: TextField(
-                    controller: nameController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.black12,
-                      prefixIcon: const Icon(
-                        Icons.person_outline,
-                        color: Colors.blueAccent,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      labelText: 'Username',
-                      hintText: 'Name',
-                    ),
-                  ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 30, 30, 5),
+          child: TextField(
+            controller: nameController,
+            obscureText: false,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.black12,
+              prefixIcon: const Icon(
+                Icons.person_outline,
+                color: Colors.blueAccent,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 15, 30, 5),
-                  child: TextField(
-                    controller: emailController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.black12,
-                      prefixIcon: const Icon(
-                        Icons.email_outlined,
-                        color: Colors.blueAccent,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      labelText: 'Email',
-                      hintText: 'email',
-                    ),
-                  ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
                 ),
-              ],
-            );
-          },
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              labelText: 'Username',
+              hintText: 'Name',
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 15, 30, 5),
+          child: TextField(
+            controller: emailController,
+            obscureText: false,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.black12,
+              prefixIcon: const Icon(
+                Icons.email_outlined,
+                color: Colors.blueAccent,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+              labelText: 'Email',
+              hintText: 'Email',
+            ),
+          ),
         ),
       ],
     );
