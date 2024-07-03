@@ -4,7 +4,7 @@ import 'package:wallet/components/chart_Bar_Screen.dart';
 import 'home_screen/transaction_Home_Screen.dart';
 
 class BarScreen extends StatefulWidget {
-  BarScreen({Key? key}) : super(key: key);
+  const BarScreen({super.key});
 
   @override
   State<BarScreen> createState() => _BarScreenState();

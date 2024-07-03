@@ -9,9 +9,9 @@ class SignupScreen extends StatefulWidget {
   final UserModel userModel;
 
   const SignupScreen({
-    Key? key,
+    super.key,
     required this.userModel,
-  }) : super(key: key);
+  });
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();

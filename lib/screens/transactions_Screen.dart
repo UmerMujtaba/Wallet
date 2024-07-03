@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TransactionsScreen extends StatelessWidget {
-  const TransactionsScreen({Key? key}) : super(key: key);
+  const TransactionsScreen({super.key});
   final List<Map<String, String>> transactions = const [
     {
       'image': 'assets/logos/netflixm.png',

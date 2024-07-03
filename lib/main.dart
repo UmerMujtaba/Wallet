@@ -6,6 +6,7 @@ import 'package:wallet/screens/add_card/add_Card_Screen.dart';
 import 'package:wallet/screens/add_card/add_Card_Screen2.dart';
 import 'package:wallet/screens/home_screen/home_screen.dart';
 import 'package:wallet/screens/login_Screen.dart';
+import 'package:wallet/screens/profile_Screen.dart';
 import 'package:wallet/screens/signUp_Screen.dart';
 import 'package:wallet/screens/transactions_Screen.dart';
 import 'package:wallet/services/auth_Services.dart';
@@ -32,10 +33,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(initialRoute: '/signup', routes: {
       '/signup': (context) => SignupScreen(userModel: UserModel( email: '', name: '')), // Pass a valid UserModel instance here
       '/login': (context) => LoginScreen(userModel: UserModel(email: '', name: '')), // Pass a valid UserModel instance here
-      '/home': (context) =>  HomeScreen(username: ''),
+
       '/transaction': (context) => const TransactionsScreen(),
       '/add-card': (context) => const AddCardScreen(),
       '/add-card2': (context) => const AddCardScreen2(),
+
 
 
     });

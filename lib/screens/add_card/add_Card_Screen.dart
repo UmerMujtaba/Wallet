@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'card_Stack_Add_Card_Screen.dart';
 
 class AddCardScreen extends StatefulWidget {
-  const AddCardScreen({Key? key}) : super(key: key);
+  const AddCardScreen({super.key});
 
   @override
   State<AddCardScreen> createState() => _AddCardScreenState();

@@ -1,12 +1,11 @@
-// options_SignUp.dart
+
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_Services.dart';
 
 class OptionsSignup extends StatefulWidget {
   final Function(UserModel) onUserRetrieved;
 
-  OptionsSignup({
+  const OptionsSignup({
     super.key, required this.onUserRetrieved,
 
   });

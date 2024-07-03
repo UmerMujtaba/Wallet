@@ -10,9 +10,9 @@ class LoginScreen extends StatefulWidget {
   final UserModel userModel;
 
   const LoginScreen({
-    Key? key,
+    super.key,
     required this.userModel,
-  }) : super(key: key);
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

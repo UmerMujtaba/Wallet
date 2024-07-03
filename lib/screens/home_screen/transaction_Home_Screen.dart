@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TransactionHomeScreen extends StatelessWidget {
-  const TransactionHomeScreen({Key? key}) : super(key: key);
+  const TransactionHomeScreen({super.key});
 
   final List<Map<String, String>> transactions = const [
     {

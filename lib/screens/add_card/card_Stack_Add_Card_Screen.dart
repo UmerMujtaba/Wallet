@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CardStackAddCardScreen extends StatelessWidget {
-  const CardStackAddCardScreen({Key? key}) : super(key: key);
+  const CardStackAddCardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class CardStackAddCardScreen extends StatelessWidget {
               left: 30,
               top: 40,
               child: Image(
-                image: AssetImage('assets/imagesr.png'),
+                image: AssetImage('assets/image.png'),
                 height: 50,
                 width: 60,
               ),

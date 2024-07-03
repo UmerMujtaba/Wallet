@@ -4,7 +4,8 @@ import 'package:wallet/screens/bar_Screen.dart';
 import 'package:wallet/screens/home_screen/stack_Home_Screen.dart';
 import 'package:wallet/screens/home_screen/transaction_Home_Screen.dart';
 import 'package:wallet/screens/notification_Screen.dart';
-import 'package:wallet/screens/setttings_Screen.dart';
+
+import '../settings_Screen.dart';
 import 'options_Home_Screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // Pass userModel to HomeScreenContent
       BarScreen(),
       NotificationScreen(),
-      const SetttingsScreen(),
+      SettingScreen(username: widget.username),
     ];
   }
 

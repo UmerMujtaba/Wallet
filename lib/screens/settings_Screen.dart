@@ -1,25 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet/screens/profile_Screen.dart';
 
-
-class ProfileScreen extends StatefulWidget {
+class SettingScreen  extends StatefulWidget {
   final String username;
-
-  const ProfileScreen({
-    super.key,
-    required this.username,
-  });
+  const SettingScreen ({super.key, required this.username, });
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  Future<void> deleteUser() async {
+class _SettingScreenState extends State<SettingScreen> {
+
+  Future<void> signOut() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await user.delete();
+
       }
       await FirebaseAuth.instance.signOut();
     } catch (e) {
@@ -29,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         // appBar: AppBar(),
@@ -39,9 +37,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const Padding(
-                padding: EdgeInsets.only(top: 80),
+                padding: EdgeInsets.only(top: 40),
                 child: Text(
-                  'Profile',
+                  'Settings',
                   style: TextStyle(
                     color: Colors.indigo,
                     fontSize: 18,
@@ -49,44 +47,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: const AssetImage('assets/user1.jpg'),
-                child: ClipOval(
-                  child: SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(
-                      'assets/user1.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.username,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Icon(
-                    Icons.mode_edit_outline_outlined,
-                    color: Colors.indigo,
-                    size: 20,
-                  ),
-                ],
-              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding:  const EdgeInsets.all(30.0),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
@@ -94,18 +58,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: ListView(
                             children:
                                 ListTile.divideTiles(context: context, tiles: [
-                              const ListTile(
-                                leading: Icon(
+                               ListTile(
+                                leading:  const Icon(
                                   Icons.person_outline,
                                   color: Colors.indigo,
                                   size: 22,
                                 ),
-                                title: Text('Connected Account'),
-                                trailing: Icon(
+                                title: const Text('Profile'),
+                                trailing:  const Icon(
                                   Icons.arrow_right_sharp,
                                   color: Colors.black,
                                   size: 22,
                                 ),
+                                onTap: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>  ProfileScreen(username: widget.username,)),
+                                  );
+                                },
                               ),
                               const ListTile(
                                 leading: Icon(
@@ -113,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Colors.indigo,
                                   size: 22,
                                 ),
-                                title: Text('Privacy and Security'),
+                                title: Text('Notifications'),
                                 trailing: Icon(
                                   Icons.arrow_right_sharp,
                                   color: Colors.black,
@@ -126,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Colors.indigo,
                                   size: 22,
                                 ),
-                                title: Text('Login Settings'),
+                                title: Text('Your Wallet'),
                                 trailing: Icon(
                                   Icons.arrow_right_sharp,
                                   color: Colors.black,
@@ -136,6 +106,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const ListTile(
                                 leading: Icon(
                                   Icons.key_outlined,
+                                  color: Colors.indigo,
+                                  size: 22,
+                                ),
+                                title: Text('Login Settings'),
+                                trailing: Icon(
+                                  Icons.arrow_right_sharp,
+                                  color: Colors.black,
+                                  size: 22,
+                                ),
+                              ),
+                              const ListTile(
+                                leading: Icon(
+                                  Icons.phone_callback_outlined,
                                   color: Colors.indigo,
                                   size: 22,
                                 ),
@@ -157,30 +140,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               IconButton(
                 onPressed: () async{
-                  await deleteUser();
-                  Navigator.pushReplacementNamed(context, '/signup');
+                  await signOut();
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 icon: const Icon(
-                  Icons.delete_outline_outlined,
+                  Icons.login_outlined,
                   color: Colors.indigo,
                   size: 30,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 10),
               GestureDetector(
                 onTap: () async {
-                  await deleteUser();
-                  Navigator.pushReplacementNamed(context, '/signup');
+                  await signOut();
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 child: const Text(
-                  'Delete Account',
+                  'Log Out',
                   style: TextStyle(color: Colors.indigo, fontSize: 22),
                 ),
               )
             ],
           ),
         ),
-        //bottomNavigationBar: CustomBottomBar(currentIndex: 1, onTap: (int value) {  },),
       ),
     );
   }
