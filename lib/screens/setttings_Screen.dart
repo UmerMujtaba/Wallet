@@ -10,11 +10,11 @@ class SetttingsScreen extends StatefulWidget {
 
 class _SetttingsScreenState extends State<SetttingsScreen> {
 
-  Future<void> signOutAndDeleteUser() async {
+  Future<void> signOut() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await user.delete();
+
       }
       await FirebaseAuth.instance.signOut();
     } catch (e) {
@@ -135,7 +135,7 @@ class _SetttingsScreenState extends State<SetttingsScreen> {
             const SizedBox(height: 20),
             GestureDetector(
               onTap: () async {
-                await signOutAndDeleteUser();
+                await signOut();
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text(
