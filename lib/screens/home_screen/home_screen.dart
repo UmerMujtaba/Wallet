@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wallet/components/bottom_Bar.dart';
+import 'package:wallet/model/my_card.dart';
 import 'package:wallet/screens/bar_Screen.dart';
 import 'package:wallet/screens/home_screen/stack_Home_Screen.dart';
 import 'package:wallet/screens/home_screen/transaction_Home_Screen.dart';
@@ -35,7 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       // Pass userModel to HomeScreenContent
       BarScreen(),
       NotificationScreen(),
-      SettingScreen(username: widget.username, userpic: widget.userprofile,),
+      SettingScreen(
+        username: widget.username,
+        userpic: widget.userprofile,
+      ),
     ];
   }
 
@@ -82,6 +87,8 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
 
   @override
   Widget build(BuildContext context) {
+    final _controller = PageController();
+
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SingleChildScrollView(
@@ -133,7 +140,41 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 ),
               ),
               const SizedBox(height: 30),
-              const StackHomeScreen(),
+              Container(
+                height: 200,
+                child: PageView(
+                  scrollDirection: Axis.horizontal,
+                  controller: _controller,
+                  children: [
+                    MyCard(
+                      balance: 5250,
+                      cardNumber: 123584958706,
+                      expiryMonth: 10,
+                      expiryYear: 24,
+                      color: Colors.indigo[600],
+                    ),
+                    MyCard(
+                        balance: 3685,
+                        cardNumber: 695712822218,
+                        expiryMonth: 5,
+                        expiryYear: 28,
+                        color: Colors.green[600]
+
+                    ),
+                    MyCard(
+                      balance: 85741,
+                      cardNumber: 128478662825,
+                      expiryMonth: 2,
+                      expiryYear: 23,
+                      color: Colors.blue.shade600,
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              SmoothPageIndicator(controller: _controller, count: 3,effect: ExpandingDotsEffect(
+                activeDotColor: Colors.grey.shade800
+              ),),
               const SizedBox(height: 20),
               const OptionsHomeScreen(),
               const SizedBox(height: 20),
