@@ -1,4 +1,5 @@
 // login_screen.dart
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet/components/options_SignUp.dart' as options;
 import 'package:wallet/screens/home_screen/home_screen.dart';
@@ -19,11 +20,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   @override
   Widget build(BuildContext context) {
     String name;
     String userpic;
+    final message = ModalRoute.of(context)!.settings.arguments as RemoteMessage;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -66,12 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         () {
                           setState(
                             () {
-                              name=user.name;
-                              userpic=user.profilePictureUrl;
+                              name = user.name;
+                              userpic = user.profilePictureUrl;
                               if (user.email.isNotEmpty) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) =>  HomeScreen(username: name, userprofile: userpic)),
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen(
+                                          username: name,
+                                          userprofile: userpic)),
                                 );
                               }
                             },
@@ -84,11 +89,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
+                        context,
+                        MaterialPageRoute(
                           builder: (context) =>
-                          LoginScreen(userModel: widget.userModel),
-                      ),
+                              LoginScreen(userModel: widget.userModel),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
