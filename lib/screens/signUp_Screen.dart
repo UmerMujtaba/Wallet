@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet/components/options_SignUp.dart';
 import 'package:wallet/screens/home_screen/home_screen.dart';
@@ -24,6 +25,7 @@ class _SignupScreenState extends State<SignupScreen> {
     TextEditingController emailController = TextEditingController();
     String name;
     String userpic;
+    late final message=ModalRoute.of(context)!.settings.arguments as RemoteMessage;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -81,6 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           );
                         }
                       });
+                      SnackBar(content: Text(message.notification!.title.toString()),);
                     },
                   );
                 }),
