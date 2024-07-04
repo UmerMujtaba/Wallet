@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet/screens/add_card/add_Card_Screen.dart';
 import 'package:wallet/screens/add_card/add_Card_Screen2.dart';
+import 'package:wallet/screens/chat.dart';
 import 'package:wallet/screens/home_screen/home_screen.dart';
 import 'package:wallet/screens/login_Screen.dart';
 import 'package:wallet/screens/profile_Screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       '/transaction': (context) => const TransactionsScreen(),
       '/add-card': (context) => const AddCardScreen(),
       '/add-card2': (context) => const AddCardScreen2(),
+      '/chat': (context) => const ChatPage(),
 
 
 

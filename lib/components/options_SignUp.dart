@@ -120,7 +120,7 @@ class _OptionsSignupState extends State<OptionsSignup> {
       _facebookButtonColor = Colors.white; // Reset other button color
     });
     signInWithGoogle();
-    
+
   }
 
   void _onFacebookButtonPressed() {

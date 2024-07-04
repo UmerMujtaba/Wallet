@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:wallet/screens/profile_Screen.dart';
 
+import 'chat_bot_main_screen.dart';
+
 class SettingScreen  extends StatefulWidget {
   final String username;
   final String userpic;
@@ -120,7 +122,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   size: 22,
                                 ),
                               ),
-                              const ListTile(
+                                  ListTile(
                                 leading: Icon(
                                   Icons.phone_callback_outlined,
                                   color: Colors.indigo,
@@ -132,6 +134,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                   color: Colors.black,
                                   size: 22,
                                 ),
+                                onTap: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>  ChatbotMain()),
+                                  );
+                                },
                               ),
                             ]).toList(),
                           ),
